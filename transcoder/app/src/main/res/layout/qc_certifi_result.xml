@@ -8,40 +8,57 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <include layout="@layout/result_toolbar"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp30"
             android:layout_gravity="center_horizontal"
+            style="@style/ewmxx"
             android:text="@string/certificate_info"
             android:textColor="@color/appName" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp21"
             android:layout_gravity="center_horizontal"
             android:src="@mipmap/code_picture" />
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp29"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layerType = "software"
+            android:background="@drawable/line_shape"/>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/hgz"
+            android:layout_marginTop="@dimen/dp22"
             android:layout_gravity="center_horizontal"
-            android:text="@string/certificate_title"
-            android:textColor="@color/appName" />
+            android:text="@string/certificate_title" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_marginLeft="@dimen/dp100"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp100"
+                style="@style/list_left"
                 android:text="@string/certificate_hgbh" />
             <TextView
-                android:layout_marginLeft="@dimen/dp20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp20"
+                style="@style/list_right"
                 android:text="00000" />
         </LinearLayout>
 
@@ -299,5 +316,8 @@
                 android:layout_gravity="center_horizontal"
                 android:src="@mipmap/car_picture" />
         </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp50" />
     </LinearLayout>
 </ScrollView>

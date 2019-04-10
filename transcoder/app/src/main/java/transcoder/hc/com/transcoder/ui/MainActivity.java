@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import transcoder.hc.com.transcoder.R;
+import transcoder.hc.com.transcoder.base.BaseActivity;
 
 /**
  * Skeleton of an Android Things activity.
@@ -26,10 +27,10 @@ import transcoder.hc.com.transcoder.R;
  *
  * @see <a href="https://github.com/androidthings/contrib-drivers#readme">https://github.com/androidthings/contrib-drivers#readme</a>
  */
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
         setLunchtime();

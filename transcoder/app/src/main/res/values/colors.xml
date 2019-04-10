@@ -2,10 +2,20 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#90FFFFFF</color>
     <color name="appName">#353535</color>
     <color name="appQCSystem">#b0b0b0</color>
     <color name="scan_background">#66000000</color>
     <color name="blue">#5697e9</color>
     <color name="NetworError">#d56f6f</color>
+
+    <!-- QRCode scanner color begin -->
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="result_view">#B0000000</color>
+    <color name="viewfinder_frame">#90FFFFFF</color>
+    <color name="result_point_color">#90FFFFFF</color>
+    <color name="laser_color">#196fda</color>
+    <color name="corner_color">#196fda</color>
+    <color name="line_color">#979797</color>
+    <color name="app_color">#ffffff</color>
 </resources>

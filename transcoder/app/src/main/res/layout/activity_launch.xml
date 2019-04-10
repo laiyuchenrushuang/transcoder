@@ -9,10 +9,10 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_marginHorizontal="@dimen/dp100">
+    android:layout_alignParentBottom="true">
     <LinearLayout
         android:id="@+id/max_ll"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -39,10 +39,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/qr_code_system"
+                android:layout_marginTop="@dimen/dp6"
                 android:textColor="@color/appQCSystem"
                 android:layout_weight="1"
                 android:textSize="@dimen/dp12"/>
         </LinearLayout>
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp30"
+        android:layout_below="@id/max_ll"
+        />
 </RelativeLayout>
+
 </RelativeLayout>

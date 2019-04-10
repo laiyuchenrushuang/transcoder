@@ -10,96 +10,115 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
+            style="@style/ThemeZMB"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp47"
-            style="@style/ThemeZMB"
-            android:text="@string/app_name"
-            android:background="@color/blue"/>
+            android:background="@color/blue"
+            android:text="@string/app_name" />
 
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/main_background" />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/main_background" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp70" />
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/bt_capture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/dp1"
+                android:layout_marginTop="73dp"
                 android:background="@mipmap/button_normal" />
         </FrameLayout>
 
         <TextView
-            android:layout_marginTop="@dimen/dp30"
+            style="@style/text1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20"
             android:gravity="center"
             android:text="@string/zmsm" />
 
         <LinearLayout
-            android:layout_marginTop="@dimen/dp50"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp50"
             android:gravity="center"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
+                >
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp120"
                     android:background="@mipmap/step_first" />
 
                 <TextView
+                    android:layout_marginLeft="@dimen/dp150"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/first_step" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp17" />
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
+                >
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp120"
                     android:background="@mipmap/step_second" />
 
                 <TextView
+                    android:layout_marginLeft="@dimen/dp150"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/second_step" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp17" />
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
+                >
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp120"
                     android:background="@mipmap/step_third" />
 
                 <TextView
+                    android:layout_marginLeft="@dimen/dp150"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/third_step" />
-            </LinearLayout>
-
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
