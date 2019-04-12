@@ -58,4 +58,21 @@
         <item name="android:textColor">#343434</item>
         <item name="android:textSize">9sp</item>
     </style>
+
+    <style name="transcoding">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="button_again">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="error_tishi">
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>

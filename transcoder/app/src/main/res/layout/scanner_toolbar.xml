@@ -32,7 +32,7 @@
             android:id="@+id/scanner_toolbar_more"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingRight="20dp"
+            android:paddingRight="50dp"
             />
 
     </LinearLayout>

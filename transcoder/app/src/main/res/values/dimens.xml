@@ -35,4 +35,6 @@
     <dimen name="dp33">33dp</dimen>
     <dimen name="dp2">2dp</dimen>
     <dimen name="dp29">29dp</dimen>
+    <dimen name="dp37">37dp</dimen>
+    <dimen name="dp13">13dp</dimen>
 </resources>

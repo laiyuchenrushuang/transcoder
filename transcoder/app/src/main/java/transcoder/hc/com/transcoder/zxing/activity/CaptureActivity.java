@@ -27,6 +27,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.ChecksumException;
@@ -38,11 +42,19 @@ import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Vector;
 
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import transcoder.hc.com.transcoder.R;
+import transcoder.hc.com.transcoder.entity.CarEntity;
 import transcoder.hc.com.transcoder.ui.CertificateActivity;
+import transcoder.hc.com.transcoder.ui.ErrorActivity;
 import transcoder.hc.com.transcoder.ui.QRActivity;
 import transcoder.hc.com.transcoder.zxing.camera.CameraManager;
 import transcoder.hc.com.transcoder.zxing.decoding.CaptureActivityHandler;
@@ -77,6 +89,8 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
     //	private Button cancelScanButton;
     public static final int RESULT_CODE_QR_SCAN = 0xA1;
     public static final String INTENT_EXTRA_KEY_QR_SCAN = "qr_scan_result";
+    private static String gsonResult = null;
+
     /**
      * Called when the activity is first created.
      */
@@ -187,13 +201,14 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
         playBeepSoundAndVibrate();
         String resultString = result.getText();
         //FIXME
-        if (TextUtils.isEmpty(resultString)) {
-            Toast.makeText(CaptureActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(resultString) || !resultString.contains("vinCode")) {
+            startActivity(new Intent(this, ErrorActivity.class));
         } else {
-            Intent resultIntent = new Intent(getApplicationContext(), CertificateActivity.class);
+            getDataSync(resultString);
+            Intent resultIntent = new Intent(this, CertificateActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString(INTENT_EXTRA_KEY_QR_SCAN, resultString);
-            System.out.println("sssssssssssssssss scan 0 = " + resultString);
+            bundle.putString(INTENT_EXTRA_KEY_QR_SCAN, gsonResult);
+            System.out.println("sssssssssssssssss scan 0 = " + gsonResult);
             // 不能使用Intent传递大于40kb的bitmap，可以使用一个单例对象存储这个bitmap
 //            bundle.putParcelable("bitmap", barcode);
 //            Logger.d("saomiao",resultString);
@@ -201,7 +216,37 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
             this.setResult(RESULT_CODE_QR_SCAN, resultIntent);
             startActivity(resultIntent);
         }
-        CaptureActivity.this.finish();
+        //CaptureActivity.this.finish();
+    }
+
+    private void getDataSync(final String result) {
+
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request request = new Request.Builder()
+        //http://222.212.90.203/electricbicycle/Certificate/pares?url=http://www.cqccms.com.cn/incoc/GSViewEbike!viewCocEbike.action?vinCode=117321900000001
+                .url("http://222.212.90.203/electricbicycle/Certificate/pares?url="+ result)//请求接口。如果需要传参拼接到接口后面。
+                .build();
+
+
+        okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    gsonResult = response.body().string();
+                    Log.d("lylog", "onResponse: "+gsonResult);
+                    Intent resultIntent = new Intent(CaptureActivity.this, CertificateActivity.class);
+                    resultIntent.putExtra("qr_scan_result",gsonResult);
+                    startActivity(resultIntent);
+                }
+            }
+        });
+
     }
 
     private void initCamera(SurfaceHolder surfaceHolder) {

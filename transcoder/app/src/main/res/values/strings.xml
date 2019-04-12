@@ -15,15 +15,15 @@
     <string name="certificate_title">合格证</string>
     <string name="certificate_hgbh">产品合格证编号</string>
     <string name="certificate_zsbh">ccc证书编号</string>
-    <string name="certificate_state">ccc证书状态</string>
-    <string name="certificate_yxrq">ccc证书有效期止日期</string>
+    <string name="certificate_state">CCC证书版本号</string>
+    <string name="certificate_yxrq">CCC证书发证日期</string>
     <string name="certificate_clzzs">车辆制造商</string>
-    <string name="certificate_long">长</string>
+    <string name="certificate_long">长×宽×高(mm×mm×mm)</string>
     <string name="certificate_width">宽</string>
     <string name="certificate_hight">高</string>
-    <string name="certificate_xhlc">续航里程</string>
-    <string name="certificate_zczl">整车质量</string>
-    <string name="certificate_zgsjsd">最高设计时速</string>
+    <string name="certificate_xhlc">续行里程（km）</string>
+    <string name="certificate_zczl">整车质量（kg）</string>
+    <string name="certificate_zgsjsd">最高设计时速(km/h)</string>
     <string name="certificate_bmwz">车架上整车编码的位置</string>
     <string name="certificate_mpwz">铭牌固定位置</string>
     <string name="certificate_csys">车身颜色</string>
@@ -31,5 +31,6 @@
     <string name="certificate_clwxtp">车辆外形简图</string>
     <string name="certificate_info">二维码信息</string>
     <string name="certificate_result">扫描结果</string>
+    <string name="certificate_failed">扫码失败</string>
 
 </resources>

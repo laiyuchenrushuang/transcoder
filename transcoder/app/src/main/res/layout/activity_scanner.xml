@@ -29,6 +29,22 @@
             app:mask_color="@color/viewfinder_mask"
             app:result_color="@color/result_view"
             app:result_point_color="@color/result_point_color"/>
-
+        <!--<LinearLayout-->
+            <!--android:layout_width="220dp"-->
+            <!--android:layout_height="@dimen/dp40"-->
+            <!--android:background="@drawable/progress_view"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:gravity="center"-->
+            <!--android:orientation="horizontal">-->
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@mipmap/qc_loading"/>-->
+            <!--<TextView-->
+                <!--style="@style/transcoding"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/transcoding"/>-->
+        <!--</LinearLayout>-->
     </FrameLayout>
 </LinearLayout>

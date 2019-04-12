@@ -17,5 +17,9 @@
     <color name="laser_color">#196fda</color>
     <color name="corner_color">#196fda</color>
     <color name="line_color">#979797</color>
+
+    <color name="fengexian_color">#dddddd</color>
     <color name="app_color">#ffffff</color>
+
+    <color name="error">#f26a6a</color>
 </resources>
