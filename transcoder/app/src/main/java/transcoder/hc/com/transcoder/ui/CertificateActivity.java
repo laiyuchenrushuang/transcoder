@@ -2,22 +2,16 @@ package transcoder.hc.com.transcoder.ui;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.zxing.WriterException;
-
-import java.net.HttpCookie;
 
 import transcoder.hc.com.transcoder.R;
 import transcoder.hc.com.transcoder.base.BaseActivity;
@@ -170,7 +164,7 @@ public class CertificateActivity extends BaseActivity implements View.OnClickLis
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("lylog", "onActivityResult: resultCode="+resultCode);
-        if (resultCode == AppUtils.RESULT_OK) {
+        if (requestCode == AppUtils.RESULT_OK) {
             Log.d("lylog", "onActivityResult: ");
             Bundle bundle = data.getExtras();
             String scanResult = bundle.getString("qr_scan_result");

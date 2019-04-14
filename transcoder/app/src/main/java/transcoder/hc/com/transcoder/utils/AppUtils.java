@@ -6,4 +6,5 @@ package transcoder.hc.com.transcoder.utils;
 
 public class AppUtils {
     public static int RESULT_OK = 0xA1;
+    public static int CEMERA_OK =   1;
 }

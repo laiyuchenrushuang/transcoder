@@ -3,18 +3,13 @@ package transcoder.hc.com.transcoder.zxing.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.os.Vibrator;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,41 +20,25 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.zxing.BarcodeFormat;
-import com.google.zxing.BinaryBitmap;
-import com.google.zxing.ChecksumException;
-import com.google.zxing.DecodeHintType;
-import com.google.zxing.FormatException;
-import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
-import com.google.zxing.common.HybridBinarizer;
-import com.google.zxing.qrcode.QRCodeReader;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
 import java.util.Vector;
 
-import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import transcoder.hc.com.transcoder.R;
-import transcoder.hc.com.transcoder.entity.CarEntity;
+import transcoder.hc.com.transcoder.base.BaseActivity;
 import transcoder.hc.com.transcoder.ui.CertificateActivity;
 import transcoder.hc.com.transcoder.ui.ErrorActivity;
 import transcoder.hc.com.transcoder.ui.QRActivity;
+import transcoder.hc.com.transcoder.utils.AppUtils;
 import transcoder.hc.com.transcoder.zxing.camera.CameraManager;
 import transcoder.hc.com.transcoder.zxing.decoding.CaptureActivityHandler;
 import transcoder.hc.com.transcoder.zxing.decoding.InactivityTimer;
-import transcoder.hc.com.transcoder.zxing.decoding.RGBLuminanceSource;
 import transcoder.hc.com.transcoder.zxing.view.ViewfinderView;
 
 
@@ -68,7 +47,7 @@ import transcoder.hc.com.transcoder.zxing.view.ViewfinderView;
  *
  * @author Ryan.Tang
  */
-public class CaptureActivity extends AppCompatActivity implements Callback {
+public class CaptureActivity extends BaseActivity implements Callback {
 
     private static final int REQUEST_CODE_SCAN_GALLERY = 100;
 
@@ -205,16 +184,16 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
             startActivity(new Intent(this, ErrorActivity.class));
         } else {
             getDataSync(resultString);
-            Intent resultIntent = new Intent(this, CertificateActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString(INTENT_EXTRA_KEY_QR_SCAN, gsonResult);
-            System.out.println("sssssssssssssssss scan 0 = " + gsonResult);
-            // 不能使用Intent传递大于40kb的bitmap，可以使用一个单例对象存储这个bitmap
-//            bundle.putParcelable("bitmap", barcode);
-//            Logger.d("saomiao",resultString);
-            resultIntent.putExtras(bundle);
-            this.setResult(RESULT_CODE_QR_SCAN, resultIntent);
-            startActivity(resultIntent);
+//            Intent resultIntent = new Intent(this, CertificateActivity.class);
+//            Bundle bundle = new Bundle();
+//            bundle.putString(INTENT_EXTRA_KEY_QR_SCAN, gsonResult);
+//            System.out.println("sssssssssssssssss scan 0 = " + gsonResult);
+//            // 不能使用Intent传递大于40kb的bitmap，可以使用一个单例对象存储这个bitmap
+////            bundle.putParcelable("bitmap", barcode);
+////            Logger.d("saomiao",resultString);
+//            resultIntent.putExtras(bundle);
+//            this.setResult(RESULT_CODE_QR_SCAN, resultIntent);
+//            startActivity(resultIntent);
         }
         //CaptureActivity.this.finish();
     }
@@ -225,28 +204,28 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
         //http://222.212.90.203/electricbicycle/Certificate/pares?url=http://www.cqccms.com.cn/incoc/GSViewEbike!viewCocEbike.action?vinCode=117321900000001
-                .url("http://222.212.90.203/electricbicycle/Certificate/pares?url="+ result)//请求接口。如果需要传参拼接到接口后面。
+                .url("http://222.212.90.203:8044/electricbicycle/Certificate/pares?url="+ result)//请求接口。如果需要传参拼接到接口后面。
                 .build();
 
 
         okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
-
+            public void onFailure(okhttp3.Call call, IOException e) {
+                Log.d("lylog", "onResponse: onFailure ");
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(okhttp3.Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     gsonResult = response.body().string();
                     Log.d("lylog", "onResponse: "+gsonResult);
                     Intent resultIntent = new Intent(CaptureActivity.this, CertificateActivity.class);
                     resultIntent.putExtra("qr_scan_result",gsonResult);
+                    setResult(AppUtils.RESULT_OK,resultIntent);
                     startActivity(resultIntent);
                 }
             }
         });
-
     }
 
     private void initCamera(SurfaceHolder surfaceHolder) {

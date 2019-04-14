@@ -11,6 +11,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
@@ -24,9 +25,14 @@ public final class EncodingHandler {
 	
 	public static Bitmap createQRCode(String str, int widthAndHeight) throws WriterException {
 		Hashtable<EncodeHintType, String> hints = new Hashtable<EncodeHintType, String>();
-        hints.put(EncodeHintType.CHARACTER_SET, "utf-8"); 
-		BitMatrix matrix = new MultiFormatWriter().encode(str,
-				BarcodeFormat.QR_CODE, widthAndHeight, widthAndHeight);
+        hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
+		BitMatrix matrix = null;
+		try {
+			matrix = new MultiFormatWriter().encode(new String(str.getBytes("UTF-8"),"ISO-8859-1"),
+                            BarcodeFormat.QR_CODE, widthAndHeight, widthAndHeight);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		int width = matrix.getWidth();
 		int height = matrix.getHeight();
 		int[] pixels = new int[width * height];
