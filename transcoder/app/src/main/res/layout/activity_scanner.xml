@@ -29,22 +29,30 @@
             app:mask_color="@color/viewfinder_mask"
             app:result_color="@color/result_view"
             app:result_point_color="@color/result_point_color"/>
-        <!--<LinearLayout-->
-            <!--android:layout_width="220dp"-->
-            <!--android:layout_height="@dimen/dp40"-->
-            <!--android:background="@drawable/progress_view"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:gravity="center"-->
-            <!--android:orientation="horizontal">-->
-            <!--<ImageView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:src="@mipmap/qc_loading"/>-->
-            <!--<TextView-->
-                <!--style="@style/transcoding"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/transcoding"/>-->
-        <!--</LinearLayout>-->
+        <LinearLayout
+            android:id="@+id/qc_loading_view"
+            android:layout_marginLeft="@dimen/dp100"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/dp50"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="center_horizontal"
+            android:background="@drawable/qc_loading"
+            >
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/qc_loading"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/dp10"
+            android:layout_marginLeft="10dp"/>
+            <TextView
+                style="@style/qc_loading_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_gravity="center_vertical"
+                android:text="@string/transcoding"/>
+        </LinearLayout>
     </FrameLayout>
 </LinearLayout>

@@ -75,4 +75,10 @@
         <item name="android:textSize">16sp</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="qc_loading_text">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">left</item>
+    </style>
 </resources>

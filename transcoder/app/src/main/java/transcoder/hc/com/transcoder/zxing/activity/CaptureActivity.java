@@ -20,6 +20,7 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
@@ -70,7 +71,7 @@ public class CaptureActivity extends BaseActivity implements Callback {
     public static final String INTENT_EXTRA_KEY_QR_SCAN = "qr_scan_result";
     public static final String INTENT_EXTRA_KEY_QR_SCAN_MIN = "qr_min_result";
     private static String gsonResult = null;
-
+private LinearLayout qcLodingView;
     /**
      * Called when the activity is first created.
      */
@@ -81,6 +82,8 @@ public class CaptureActivity extends BaseActivity implements Callback {
         //ViewUtil.addTopView(getApplicationContext(), this, R.string.scan_card);
         CameraManager.init(getApplication());
         viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_content);
+        qcLodingView = findViewById(R.id.qc_loading_view);
+        qcLodingView.setVisibility(View.GONE);
         back = (ImageView) findViewById(R.id.scanner_toolbar_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,12 +183,14 @@ public class CaptureActivity extends BaseActivity implements Callback {
         inactivityTimer.onActivity();
         playBeepSoundAndVibrate();
         String resultString = result.getText();
+        qcLodingView.setVisibility(View.VISIBLE);
         //FIXME
         if (TextUtils.isEmpty(resultString) || !resultString.contains("vinCode")) {
             startActivity(new Intent(this, ErrorActivity.class));
+            qcLodingView.setVisibility(View.GONE);
         } else {
             getDataSync(resultString);
-
+            qcLodingView.setVisibility(View.GONE);
         }
         //CaptureActivity.this.finish();
     }

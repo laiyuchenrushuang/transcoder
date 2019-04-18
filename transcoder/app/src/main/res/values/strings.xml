@@ -7,7 +7,7 @@
     <string name="zmsm">转码扫描</string>
     <string name="scan_again">点击此处重新扫描</string>
     <string name="scan_code">扫描二维码</string>
-    <string name="transcoding">转码中，请稍后...</string>
+    <string name="transcoding">转码中，请稍后......</string>
     <string name="network_failed">网络连接失败，请检查您的网络设置</string>
     <string name="transcoding_failed">无效的二维码，请重新扫描！</string>
     <string name="transcoding_failed_title">扫描失败</string>
