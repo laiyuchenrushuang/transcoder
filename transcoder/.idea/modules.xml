@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\lyzy\Code\transcoder\transcoder\app\app.iml" filepath="D:\lyzy\Code\transcoder\transcoder\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/transcoder.iml" filepath="$PROJECT_DIR$/transcoder.iml" />
+      <module fileurl="file://D:\lyzy\Code\transcoder\transcoder\transcoder.iml" filepath="D:\lyzy\Code\transcoder\transcoder\transcoder.iml" />
     </modules>
   </component>
 </project>

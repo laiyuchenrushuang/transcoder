@@ -61,7 +61,7 @@ public class CertificateActivity extends BaseActivity implements View.OnClickLis
 //    private ImageView zlwxtt;
 
     Intent intent;
-    private String codeResult;
+    private String codeResult,minResult;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,11 +69,12 @@ public class CertificateActivity extends BaseActivity implements View.OnClickLis
         setContentView(R.layout.qc_certifi_result);
         intent = getIntent();
         Bundle bundle=intent.getExtras();//.getExtras()得到intent所附带的额外数据
-        codeResult =bundle.getString("qr_scan_result");
+        codeResult =bundle.getString(AppUtils.INTENT_EXTRA_KEY_QR_SCAN);
+        minResult = bundle.getString(AppUtils.INTENT_EXTRA_KEY_QR_SCAN_MIN);
         initView();
         bindEvent();
         if (codeResult != null) {
-            codePicture.setImageBitmap(getNewCodeBitmap(codeResult));
+            codePicture.setImageBitmap(getNewCodeBitmap(minResult));
             getJson(codeResult);
         }
     }
@@ -104,17 +105,6 @@ public class CertificateActivity extends BaseActivity implements View.OnClickLis
             showToast("数据格式异常，请检查与服务器的数据");
             e.printStackTrace();
         }
-//        cphgzbh.setText(result.get("车身颜色").getAsString());
-//        cphgzbh.setText(result.get("车身颜色").getAsString());
-//        cphgzbh.setText(result.get("车身颜色").getAsString());
-//        cphgzbh.setText(result.get("车身颜色").getAsString());
-//        cphgzbh.setText(result.get("车身颜色").getAsString());
-//        cphgzbh.setText(result.get("车身颜色").getAsString());
-//        cphgzbh.setText(result.get("车身颜色").getAsString());
-
-
-//        for (int i = 0;i<result.size();i++) {
-//        }
     }
 
     private void bindEvent() {
@@ -183,7 +173,7 @@ public class CertificateActivity extends BaseActivity implements View.OnClickLis
 
         try {
 
-            return EncodingHandler.createQRCode(codeText, 500);
+            return EncodingHandler.createQRCode(codeText, 700);
         } catch (WriterException e) {
             e.printStackTrace();
             return null;

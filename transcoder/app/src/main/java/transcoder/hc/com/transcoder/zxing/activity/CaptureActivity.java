@@ -68,6 +68,7 @@ public class CaptureActivity extends BaseActivity implements Callback {
     //	private Button cancelScanButton;
     public static final int RESULT_CODE_QR_SCAN = 0xA1;
     public static final String INTENT_EXTRA_KEY_QR_SCAN = "qr_scan_result";
+    public static final String INTENT_EXTRA_KEY_QR_SCAN_MIN = "qr_min_result";
     private static String gsonResult = null;
 
     /**
@@ -184,16 +185,7 @@ public class CaptureActivity extends BaseActivity implements Callback {
             startActivity(new Intent(this, ErrorActivity.class));
         } else {
             getDataSync(resultString);
-//            Intent resultIntent = new Intent(this, CertificateActivity.class);
-//            Bundle bundle = new Bundle();
-//            bundle.putString(INTENT_EXTRA_KEY_QR_SCAN, gsonResult);
-//            System.out.println("sssssssssssssssss scan 0 = " + gsonResult);
-//            // 不能使用Intent传递大于40kb的bitmap，可以使用一个单例对象存储这个bitmap
-////            bundle.putParcelable("bitmap", barcode);
-////            Logger.d("saomiao",resultString);
-//            resultIntent.putExtras(bundle);
-//            this.setResult(RESULT_CODE_QR_SCAN, resultIntent);
-//            startActivity(resultIntent);
+
         }
         //CaptureActivity.this.finish();
     }
@@ -212,17 +204,28 @@ public class CaptureActivity extends BaseActivity implements Callback {
             @Override
             public void onFailure(okhttp3.Call call, IOException e) {
                 Log.d("lylog", "onResponse: onFailure ");
+                startActivity(new Intent(CaptureActivity.this,ErrorActivity.class));
             }
 
             @Override
             public void onResponse(okhttp3.Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     gsonResult = response.body().string();
+                    String minCodeString = AppUtils.getMinCodeString(gsonResult);
                     Log.d("lylog", "onResponse: "+gsonResult);
-                    Intent resultIntent = new Intent(CaptureActivity.this, CertificateActivity.class);
-                    resultIntent.putExtra("qr_scan_result",gsonResult);
-                    setResult(AppUtils.RESULT_OK,resultIntent);
-                    startActivity(resultIntent);
+                    if (minCodeString == null) {
+                        showToast("数据解析有为空的情况，查看数据是否正常");
+                        startActivity(new Intent(CaptureActivity.this,ErrorActivity.class));
+                    }else{
+                        Intent resultIntent = new Intent(CaptureActivity.this, CertificateActivity.class);
+                        resultIntent.putExtra(INTENT_EXTRA_KEY_QR_SCAN,gsonResult);
+                        resultIntent.putExtra(INTENT_EXTRA_KEY_QR_SCAN_MIN,minCodeString);
+                        setResult(AppUtils.RESULT_OK,resultIntent);
+                        startActivity(resultIntent);
+                    }
+
+
+
                 }
             }
         });

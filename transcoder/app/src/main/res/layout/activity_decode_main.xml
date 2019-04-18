@@ -68,11 +68,11 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp120"
+                    android:layout_marginLeft="105dp"
                     android:background="@mipmap/step_first" />
 
                 <TextView
-                    android:layout_marginLeft="@dimen/dp150"
+                    android:layout_marginLeft="130dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/first_step" />
@@ -89,11 +89,11 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp120"
+                    android:layout_marginLeft="105dp"
                     android:background="@mipmap/step_second" />
 
                 <TextView
-                    android:layout_marginLeft="@dimen/dp150"
+                    android:layout_marginLeft="130dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/second_step" />
@@ -110,11 +110,11 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp120"
+                    android:layout_marginLeft="105dp"
                     android:background="@mipmap/step_third" />
 
                 <TextView
-                    android:layout_marginLeft="@dimen/dp150"
+                    android:layout_marginLeft="130dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/third_step" />
