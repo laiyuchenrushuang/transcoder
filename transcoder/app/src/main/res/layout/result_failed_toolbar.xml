@@ -24,7 +24,7 @@
             android:id="@+id/result_toolbar_title"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.9"
             style="@style/ScanCode"
             android:text="@string/certificate_failed" />
 
@@ -32,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingRight="40dp"
+            android:layout_weight="0.1"
             />
 
     </LinearLayout>

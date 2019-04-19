@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.os.Vibrator;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -71,7 +72,8 @@ public class CaptureActivity extends BaseActivity implements Callback {
     public static final String INTENT_EXTRA_KEY_QR_SCAN = "qr_scan_result";
     public static final String INTENT_EXTRA_KEY_QR_SCAN_MIN = "qr_min_result";
     private static String gsonResult = null;
-private LinearLayout qcLodingView;
+    private LinearLayout qcLodingView;
+
     /**
      * Called when the activity is first created.
      */
@@ -83,7 +85,7 @@ private LinearLayout qcLodingView;
         CameraManager.init(getApplication());
         viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_content);
         qcLodingView = findViewById(R.id.qc_loading_view);
-        qcLodingView.setVisibility(View.GONE);
+        qcLodingView.setVisibility(View.INVISIBLE);
         back = (ImageView) findViewById(R.id.scanner_toolbar_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +138,7 @@ private LinearLayout qcLodingView;
     @Override
     protected void onResume() {
         super.onResume();
+        qcLodingView.setVisibility(View.INVISIBLE);
         SurfaceView surfaceView = (SurfaceView) findViewById(R.id.scanner_view);
         SurfaceHolder surfaceHolder = surfaceView.getHolder();
         if (hasSurface) {
@@ -164,12 +167,14 @@ private LinearLayout qcLodingView;
             handler.quitSynchronously();
             handler = null;
         }
+        qcLodingView.setVisibility(View.INVISIBLE);
         CameraManager.get().closeDriver();
     }
 
     @Override
     protected void onDestroy() {
         inactivityTimer.shutdown();
+        qcLodingView.setVisibility(View.GONE);
         super.onDestroy();
     }
 
@@ -183,33 +188,50 @@ private LinearLayout qcLodingView;
         inactivityTimer.onActivity();
         playBeepSoundAndVibrate();
         String resultString = result.getText();
-        qcLodingView.setVisibility(View.VISIBLE);
+        Message msg = new Message();
+        msg.what = View.VISIBLE;
+        mHandler.sendMessage(msg);
+
         //FIXME
         if (TextUtils.isEmpty(resultString) || !resultString.contains("vinCode")) {
             startActivity(new Intent(this, ErrorActivity.class));
-            qcLodingView.setVisibility(View.GONE);
         } else {
             getDataSync(resultString);
-            qcLodingView.setVisibility(View.GONE);
         }
         //CaptureActivity.this.finish();
     }
 
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case View.VISIBLE:
+                    qcLodingView.setVisibility(View.VISIBLE);
+                    qcLodingView.postInvalidate();
+                    break;
+                case View.INVISIBLE:
+                    qcLodingView.setVisibility(View.INVISIBLE);
+                    qcLodingView.postInvalidate();
+                    break;
+            }
+        }
+    };
     private void getDataSync(final String result) {
 
 
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
-        //http://222.212.90.203/electricbicycle/Certificate/pares?url=http://www.cqccms.com.cn/incoc/GSViewEbike!viewCocEbike.action?vinCode=117321900000001
-                .url("http://222.212.90.203:8044/electricbicycle/Certificate/pares?url="+ result)//请求接口。如果需要传参拼接到接口后面。
+                //http://222.212.90.203/electricbicycle/Certificate/pares?url=http://www.cqccms.com.cn/incoc/GSViewEbike!viewCocEbike.action?vinCode=117321900000001
+                .url("http://222.212.90.203:8044/electricbicycle/Certificate/pares?url=" + result)//请求接口。如果需要传参拼接到接口后面。
                 .build();
 
 
         okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(okhttp3.Call call, IOException e) {
-                Log.d("lylog", "onResponse: onFailure ");
-                startActivity(new Intent(CaptureActivity.this,ErrorActivity.class));
+                Log.d("lylog", "onFailure: ?");
+                startActivity(new Intent(CaptureActivity.this, ErrorActivity.class));
             }
 
             @Override
@@ -217,20 +239,16 @@ private LinearLayout qcLodingView;
                 if (response.isSuccessful()) {
                     gsonResult = response.body().string();
                     String minCodeString = AppUtils.getMinCodeString(gsonResult);
-                    Log.d("lylog", "onResponse: "+gsonResult);
                     if (minCodeString == null) {
                         showToast("数据解析有为空的情况，查看数据是否正常");
-                        startActivity(new Intent(CaptureActivity.this,ErrorActivity.class));
-                    }else{
+                        startActivity(new Intent(CaptureActivity.this, ErrorActivity.class));
+                    } else {
                         Intent resultIntent = new Intent(CaptureActivity.this, CertificateActivity.class);
-                        resultIntent.putExtra(INTENT_EXTRA_KEY_QR_SCAN,gsonResult);
-                        resultIntent.putExtra(INTENT_EXTRA_KEY_QR_SCAN_MIN,minCodeString);
-                        setResult(AppUtils.RESULT_OK,resultIntent);
+                        resultIntent.putExtra(INTENT_EXTRA_KEY_QR_SCAN, gsonResult);
+                        resultIntent.putExtra(INTENT_EXTRA_KEY_QR_SCAN_MIN, minCodeString);
+                        setResult(AppUtils.RESULT_OK, resultIntent);
                         startActivity(resultIntent);
                     }
-
-
-
                 }
             }
         });
