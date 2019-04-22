@@ -35,8 +35,8 @@ ImageView bt_capture;
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_capture:
-                Drawable bgDrawable =getDrawable(R.mipmap.button_clicked);
-                bt_capture.setBackground(bgDrawable);
+                //Drawable bgDrawable = getApplication().getDrawable(R.mipmap.button_clicked);
+                //bt_capture.setBackground(bgDrawable);
                 Intent intent = new Intent(this, CaptureActivity.class);
                 startActivity(intent);
                 finish();
