@@ -232,6 +232,7 @@ public class CaptureActivity extends BaseActivity implements Callback {
             public void onFailure(okhttp3.Call call, IOException e) {
                 Log.d("lylog", "onFailure: ?");
                 startActivity(new Intent(CaptureActivity.this, ErrorActivity.class));
+                finish();
             }
 
             @Override
@@ -242,12 +243,14 @@ public class CaptureActivity extends BaseActivity implements Callback {
                     if (minCodeString == null) {
                         showToast("数据解析有为空的情况，查看数据是否正常");
                         startActivity(new Intent(CaptureActivity.this, ErrorActivity.class));
+                        finish();
                     } else {
                         Intent resultIntent = new Intent(CaptureActivity.this, CertificateActivity.class);
                         resultIntent.putExtra(INTENT_EXTRA_KEY_QR_SCAN, gsonResult);
                         resultIntent.putExtra(INTENT_EXTRA_KEY_QR_SCAN_MIN, minCodeString);
                         setResult(AppUtils.RESULT_OK, resultIntent);
                         startActivity(resultIntent);
+                        finish();
                     }
                 }
             }
