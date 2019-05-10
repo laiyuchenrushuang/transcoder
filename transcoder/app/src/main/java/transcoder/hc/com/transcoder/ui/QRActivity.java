@@ -39,7 +39,6 @@ ImageView bt_capture;
                 //bt_capture.setBackground(bgDrawable);
                 Intent intent = new Intent(this, CaptureActivity.class);
                 startActivity(intent);
-                finish();
                 break;
         }
     }
