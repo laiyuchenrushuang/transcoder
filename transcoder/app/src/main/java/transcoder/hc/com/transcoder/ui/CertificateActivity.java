@@ -81,12 +81,9 @@ public class CertificateActivity extends BaseActivity implements View.OnClickLis
 
     private void getJson(String codeResult) {
         JsonParser  parser = new JsonParser();
-        //String decodeString = decodeUnicode(codeResult);
         JsonObject object=(JsonObject) parser.parse(codeResult);
         JsonObject result = object.getAsJsonObject();
 
-//        Log.d("llllllllll", "onResponse: "+result.size());
-//        Log.d("llllllllll", "车辆颜色: "+result.get("车身颜色").getAsString());
         try {
             cphgzbh.setText(result.get("产品合格证证书编号").getAsString());
             ccczsbh.setText(result.get("CCC证书编号").getAsString());
@@ -121,8 +118,6 @@ public class CertificateActivity extends BaseActivity implements View.OnClickLis
         zlzzs = findViewById(R.id.clzzs);
 
         length = findViewById(R.id.chang);
-//        width = findViewById(R.id.kuan);
-//        height = findViewById(R.id.gao);
         xhlc = findViewById(R.id.xhlc);
 
         zczl = findViewById(R.id.zczl);
@@ -136,7 +131,6 @@ public class CertificateActivity extends BaseActivity implements View.OnClickLis
         zzrq = findViewById(R.id.zzrq);
 
 
-//        zlwxtt = findViewById(R.id.car_picture);
         codePicture  = findViewById(R.id.code_picture);
     }
 

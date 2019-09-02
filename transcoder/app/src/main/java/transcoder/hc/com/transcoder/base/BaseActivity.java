@@ -28,10 +28,8 @@ public class BaseActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,  WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        requestPermision();
         //状态栏和actionbar的背景颜色一致->from guo lin
         getSameBackground();
-        
     }
 
     private void getSameBackground() {
@@ -68,21 +66,6 @@ public class BaseActivity extends AppCompatActivity {
 //        //状态栏和actionbar的背景颜色一致->from guo lin
 //        getSameBackground(hasFocus);
 //    }
-
-    private void requestPermision() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            //申请权限，CEMERA_OK是自定义的常量
-            if (AppUtils.REQUESTING) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
-                        AppUtils.CEMERA_OK);
-                AppUtils.setQuest(false);
-            }
-
-
-        }
-    }
 
     protected void showToast(String toastString) {
         Toast.makeText(this, toastString, Toast.LENGTH_SHORT).show();

@@ -221,11 +221,13 @@ public class CaptureActivity extends BaseActivity implements Callback {
 
 
         OkHttpClient okHttpClient = new OkHttpClient();
+        String  url = "http://222.212.90.203:8044/electricbicycle/Certificate/pares?url=" + result;
         Request request = new Request.Builder()
                 //http://222.212.90.203/electricbicycle/Certificate/pares?url=http://www.cqccms.com.cn/incoc/GSViewEbike!viewCocEbike.action?vinCode=117321900000001
-                .url("http://222.212.90.203:8044/electricbicycle/Certificate/pares?url=" + result)//请求接口。如果需要传参拼接到接口后面。
+                .url(url)//请求接口。如果需要传参拼接到接口后面。
+//                .url("http://11.121.35.186:8098/electricbicycle/Certificate/pares?url=" + result)//请求接口。如果需要传参拼接到接口后面。
                 .build();
-
+        Log.d("lylog"," result url = "+ url);
 
         okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
